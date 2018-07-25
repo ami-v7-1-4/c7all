@@ -25,8 +25,7 @@ build:
     pull: true
     
   ci:
-    - python --version  
-    - cd /tmp
+    - python --version    
     - echo SHIPPABLE_CASSANDRA_BINARY=$SHIPPABLE_CASSANDRA_BINARY
     - echo SHIPPABLE_COUCHDB_BINARY=$SHIPPABLE_COUCHDB_BINARY
     - echo SHIPPABLE_ES_BINARY=$SHIPPABLE_ES_BINARY
@@ -39,17 +38,25 @@ build:
     - echo SHIPPABLE_REDIS_BINARY=$SHIPPABLE_REDIS_BINARY
     - echo SHIPPABLE_SELENIUM_v=$SHIPPABLE_SELENIUM_BINARY    
     - echo SHIPPABLE_SQLITE_BINARY=$SHIPPABLE_SQLITE_BINARY
-    
-    - ncat -vz localhost 5672
-    
+
     - cassandra -v
     - memcached -V
-    - psql --version
-    - redis-server -v
     - riak version
     - which mysql
     - mysql -V #|| true
     - which sqlite3 #|| true
+    
+    - java -jar /usr/local/selenium/selenium-server-standalone-3.13.0.jar --version
+    - sqlite3 --version
+    - psql --version
+    - redis-server --version
+    - /var/lib/neo4j/bin/neo4j version
+    - dpkg -s rabbitmq-server | grep Version
+    - mongod --version
+    - elasticsearch --version
+    - sleep 5
+    - curl http://127.0.0.1:5984
+    - pip show pycrypto
     
     - docker pull shippabledocker/sample_node_pvt:ecr
     
