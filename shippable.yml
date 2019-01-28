@@ -4,18 +4,18 @@ runtime:
   nodePool: dynamic__x86_64__CentOS_7__c4_large
    
 services:
-  - couchdb #2.2.0
-  - elasticsearch #6.4.3
+  - couchdb #2.3.0
+  - elasticsearch #6.5.4
   - memcached #1.5.12
-  - mongodb #4.0.3
+  - mongodb #4.0.5
   - mysql #5.7.24
   - postgres #10.6
   - rabbitmq #3.6.15
-  - redis  #5.0.0
+  - redis  #5.0.3
   - riak #2.2.3
-  - selenium #3.141.5
+  - selenium #3.141.59
   - sqlite #3.22.0
- 
+
 build:
   pre_ci_boot:
     image_name: drydock/c7all
@@ -34,24 +34,22 @@ build:
     - echo SHIPPABLE_REDIS_BINARY=$SHIPPABLE_REDIS_BINARY
     - echo SHIPPABLE_SELENIUM_v=$SHIPPABLE_SELENIUM_BINARY    
     - echo SHIPPABLE_SQLITE_BINARY=$SHIPPABLE_SQLITE_BINARY
-
-    - memcached -V
-    - riak version
+    - memcached -V #1.5.12
+    - riak version #2.2.3
     - which mysql
-    - mysql -V #|| true
+    - mysql -V #|| true #5.7.24
     - which sqlite3 #|| true
-    - java -jar /usr/local/selenium/selenium-server-standalone-3.141.5.jar --version
-    - sqlite3 --version
-    - psql --version
-    - redis-server --version
-    - yum list rabbitmq-server | grep rabbitmq-serve
-    - mongod --version
-    - elasticsearch --version
+    - java -jar /usr/local/selenium/selenium-server-standalone-3.141.59.jar --version #3.141.59
+    - sqlite3 --version #3.22.0
+    - psql --version #10.6
+    - redis-server --version #5.0.3
+    - yum list rabbitmq-server | grep rabbitmq-serve #3.6.15
+    - mongod --version #4.0.5
+    - elasticsearch --version #6.5.4
     - sleep 5
-    - curl http://127.0.0.1:5984
-    
+    - curl http://127.0.0.1:5984 #2.3.0    
     - docker pull shippabledocker/sample_node_pvt:ecr
-    
+
 integrations:
     
   hub:
