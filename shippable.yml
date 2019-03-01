@@ -19,7 +19,7 @@ services:
 build:
   pre_ci_boot:
     image_name: drydock/c7all
-    image_tag: master
+    image_tag: v7.1.4
     pull: true
     
   ci:
